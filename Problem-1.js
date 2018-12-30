@@ -15,18 +15,27 @@
 // -1, -2, -3 results in -6
 // Starting with a frequency of zero, what is the resulting frequency after all of the changes in frequency have been applied?
 
-const frequency = 0;
-
 const fs = require('fs') 
 
-const inputArray = fs.readFile('input.txt', (err, data) => { 
-    if (err) throw err; 
-    str = data.toString();
-    array = str.split("\r\n");
-    return array;
-}) 
-
-function changeFrequency(cb) {
-    console.log(cb())
+function getInputArray(cb){
+    fs.readFile('input.txt', (err, data) => { 
+        if (err) throw err; 
+        str = data.toString();
+        array = str.split("\r\n");
+        cb(array)
+    }); 
 }
+
+function changeFrequency() {
+        getInputArray(function (array){
+            let frequency = 0;
+            for (i=0; i<array.length; i++) {
+                var integer = parseInt([array[i]], 10);
+                frequency += integer;
+            }
+            console.log(frequency);
+    })
+} 
+
+changeFrequency();
 
